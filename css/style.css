@@ -22,6 +22,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 html, body { height: 100%; }
 
 body {
@@ -315,18 +317,42 @@ button {
 .rep-stars { font-size: 1.9rem; letter-spacing: 4px; margin: 10px 0 6px; color: var(--yellow); }
 .rep-btn { font-size: 1.5rem; padding: 20px 40px; }
 
-.spin-result { margin: 8px 0 16px; }
-.spin-label { font-weight: 700; color: #7a6a8a; }
-.spin-number {
-  width: 84px; height: 84px; margin: 8px auto 0;
-  border-radius: 50%;
-  background: linear-gradient(180deg, var(--yellow), var(--orange));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.6rem; font-weight: 800; color: #fff;
-  text-shadow: 0 2px 0 rgba(0,0,0,.15);
-  box-shadow: var(--shadow);
+/* prize wheel: six 60° candy segments (1,2,3 twice), pointer fixed at top */
+.wheel-wrap { position: relative; width: 190px; margin: 10px auto 18px; }
+.wheel-pointer {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  font-size: 1.9rem; color: var(--pink-deep); z-index: 2;
+  text-shadow: 0 2px 3px rgba(0,0,0,.2);
 }
-.spin-number.revealed { animation: popIn .35s cubic-bezier(.5,1.8,.4,1) both; }
+.wheel {
+  position: relative;
+  width: 190px; height: 190px;
+  border-radius: 50%;
+  border: 8px solid #fff;
+  box-shadow: var(--shadow);
+  background: conic-gradient(
+    var(--pink)   0deg  60deg,
+    var(--yellow) 60deg 120deg,
+    var(--blue)  120deg 180deg,
+    var(--green) 180deg 240deg,
+    var(--orange)240deg 300deg,
+    var(--purple)300deg 360deg
+  );
+}
+.wheel-num {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(-60px);
+  font-size: 1.7rem; font-weight: 800; color: #fff;
+  text-shadow: 0 2px 0 rgba(0,0,0,.22);
+}
+.wheel-hub {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px; height: 54px; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+}
 
 .win-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 

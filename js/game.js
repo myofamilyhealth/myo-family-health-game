@@ -344,37 +344,70 @@ function runRepsMission(ex) {
   };
 }
 
+const WHEEL_ORDER = [1, 2, 3, 1, 2, 3]; // clockwise from the top, 60° segments
+
 async function missionComplete(ex) {
   Sound.yay();
   confettiBurst(35);
   const steps = spinSteps();
+  const nums = WHEEL_ORDER
+    .map((n, i) => `<span class="wheel-num" style="--a:${i * 60 + 30}deg">${n}</span>`)
+    .join("");
   openModal(`
     <div class="mission-emoji bounce">🎉</div>
     <h2 class="mission-title">You did it!</h2>
     <p class="mission-story">+${COINS.exercise} coins for finishing <strong>${ex.name}</strong>!</p>
-    <div class="spin-result">
-      <p class="spin-label">The magic spinner says…</p>
-      <div class="spin-number pop-in" id="spin-number">?</div>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer">▼</div>
+      <div class="wheel" id="wheel">${nums}<div class="wheel-hub">🎡</div></div>
     </div>
-    <button class="big-btn" id="go-move" disabled>Hop ${steps} ${steps === 1 ? "space" : "spaces"}!</button>
+    <button class="big-btn" id="spin-btn">Spin the wheel!</button>
+    <button class="big-btn" id="go-move" hidden>Hop ${steps} ${steps === 1 ? "space" : "spaces"}!</button>
   `);
   awardCoins(COINS.exercise);
-  await wait(700);
-  Sound.whoosh();
-  const numEl = $("#spin-number");
-  if (numEl) {
-    numEl.textContent = steps;
-    numEl.classList.add("revealed");
-  }
-  const btn = $("#go-move");
-  if (btn) {
-    btn.disabled = false;
-    btn.onclick = async () => {
-      closeModal();
-      await moveToken(steps);
-      await handleTile();
-    };
-  }
+
+  $("#spin-btn").onclick = () => {
+    const spinBtn = $("#spin-btn");
+    spinBtn.disabled = true;
+    Sound.whoosh();
+
+    // land the pointer on a random segment showing `steps`
+    const candidates = WHEEL_ORDER
+      .map((n, i) => (n === steps ? i : -1))
+      .filter(i => i >= 0);
+    const seg = candidates[Math.floor(Math.random() * candidates.length)];
+    const center = seg * 60 + 30;
+    const jitter = Math.random() * 40 - 20;
+    const rotation = 5 * 360 + (360 - center) + jitter;
+
+    const wheel = $("#wheel");
+    wheel.style.transition = "transform 3s cubic-bezier(.12,.75,.18,1)";
+    wheel.style.transform = `rotate(${rotation}deg)`;
+
+    // slowing click-clack while it spins
+    let delay = 70;
+    (function tick() {
+      if (delay > 420) return;
+      Sound.tick();
+      delay *= 1.22;
+      setTimeout(tick, delay);
+    })();
+
+    setTimeout(() => {
+      Sound.yay();
+      confettiBurst(15);
+      spinBtn.hidden = true;
+      const btn = $("#go-move");
+      if (!btn) return;
+      btn.hidden = false;
+      btn.classList.add("pop-in");
+      btn.onclick = async () => {
+        closeModal();
+        await moveToken(steps);
+        await handleTile();
+      };
+    }, 3100);
+  };
 }
 
 function spinSteps() {
