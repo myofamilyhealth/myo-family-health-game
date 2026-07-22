@@ -40,9 +40,10 @@ For previewing the game (or clicking through the board without doing exercises),
 - **Tap any spot on the trail** to jump the character straight to that tile — the tapped
   tile fires its event (veggie friend, lucky star, rainbow slide, or the castle win).
   Tappable tiles show a dashed pulsing ring.
-- **Use the "▶️ Next mission" button** to preview an exercise: it shows the full exercise
-  card (name, story, instructions, and grown-up note) with a "⏭️ Skip this one!" button
-  that hops ahead 1–3 spaces.
+- **Use the "▶️ Next mission" button** to bring up an exercise, then choose: **▶️ Play it!**
+  runs the exercise (timer/reps) and spins the wheel just like the real game, or
+  **⏭️ Skip this one** hops ahead 1–3 spaces without doing it. Either way the full exercise
+  card (name, story, instructions, grown-up note) is shown.
 
 Coins are still awarded and tile events still appear, so the whole game is reviewable in
 seconds.

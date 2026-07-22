@@ -315,19 +315,26 @@ function startTurn() {
   state.busy = true;
   Sound.unlock();
   const ex = pickExercise();
-  // Skip mode still shows the exercise card, but with a jump-ahead button
-  // instead of running the timer/reps and spinning the wheel.
-  const actionBtn = SKIP_MODE
-    ? `<button class="big-btn" id="mission-skip">⏭️ Skip this one!</button>`
+  // Skip mode offers a choice: play the exercise through, or skip it.
+  const buttons = SKIP_MODE
+    ? `<div class="mission-btns">
+         <button class="big-btn" id="mission-start">▶️ Play it!</button>
+         <button class="big-btn alt" id="mission-skip">⏭️ Skip this one</button>
+       </div>`
     : `<button class="big-btn" id="mission-start">Let's go!</button>`;
   openModal(`
     <div class="mission-emoji bounce">${ex.emoji}</div>
     <h2 class="mission-title">${ex.name}</h2>
     <p class="mission-story">${ex.story}</p>
     <p class="mission-instruction">${ex.instruction}</p>
-    ${actionBtn}
+    ${buttons}
     <details class="grownup-note"${SKIP_MODE ? " open" : ""}><summary>👋 Grown-ups</summary><p>${ex.grownup}</p></details>
   `);
+  $("#mission-start").onclick = () => {
+    Sound.pop();
+    if (ex.type === "timer") runTimerMission(ex);
+    else runRepsMission(ex);
+  };
   if (SKIP_MODE) {
     $("#mission-skip").onclick = async () => {
       Sound.hop();
@@ -336,12 +343,6 @@ function startTurn() {
       const steps = spinSteps();
       await moveToken(steps);
       await handleTile();
-    };
-  } else {
-    $("#mission-start").onclick = () => {
-      Sound.pop();
-      if (ex.type === "timer") runTimerMission(ex);
-      else runRepsMission(ex);
     };
   }
 }

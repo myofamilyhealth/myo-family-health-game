@@ -393,6 +393,7 @@ body.skip-mode .tile.tappable:hover {
 }
 
 .win-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+.mission-btns { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
 
 /* ---------- confetti ---------- */
 
