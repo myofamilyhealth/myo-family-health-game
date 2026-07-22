@@ -282,35 +282,40 @@ function pickExercise() {
   return ex;
 }
 
-/* Skip mode: award coins, roll 1-3, hop — no exercise, no wheel. */
-async function skipTurn() {
-  if (state.busy) return;
-  state.busy = true;
-  Sound.hop();
-  awardCoins(COINS.exercise);
-  const steps = spinSteps();
-  await moveToken(steps);
-  await handleTile();
-}
-
 function startTurn() {
   if (state.busy) return;
   state.busy = true;
   Sound.unlock();
   const ex = pickExercise();
+  // Skip mode still shows the exercise card, but with a jump-ahead button
+  // instead of running the timer/reps and spinning the wheel.
+  const actionBtn = SKIP_MODE
+    ? `<button class="big-btn" id="mission-skip">⏭️ Skip this one!</button>`
+    : `<button class="big-btn" id="mission-start">Let's go!</button>`;
   openModal(`
     <div class="mission-emoji bounce">${ex.emoji}</div>
     <h2 class="mission-title">${ex.name}</h2>
     <p class="mission-story">${ex.story}</p>
     <p class="mission-instruction">${ex.instruction}</p>
-    <button class="big-btn" id="mission-start">Let's go!</button>
-    <details class="grownup-note"><summary>👋 Grown-ups</summary><p>${ex.grownup}</p></details>
+    ${actionBtn}
+    <details class="grownup-note"${SKIP_MODE ? " open" : ""}><summary>👋 Grown-ups</summary><p>${ex.grownup}</p></details>
   `);
-  $("#mission-start").onclick = () => {
-    Sound.pop();
-    if (ex.type === "timer") runTimerMission(ex);
-    else runRepsMission(ex);
-  };
+  if (SKIP_MODE) {
+    $("#mission-skip").onclick = async () => {
+      Sound.hop();
+      closeModal();
+      awardCoins(COINS.exercise);
+      const steps = spinSteps();
+      await moveToken(steps);
+      await handleTile();
+    };
+  } else {
+    $("#mission-start").onclick = () => {
+      Sound.pop();
+      if (ex.type === "timer") runTimerMission(ex);
+      else runRepsMission(ex);
+    };
+  }
 }
 
 function runTimerMission(ex) {
@@ -533,12 +538,9 @@ function init() {
 
   if (SKIP_MODE) {
     document.body.classList.add("skip-mode");
-    const go = $("#go-btn");
-    go.textContent = "⏭️ Skip ahead!";
-    go.onclick = skipTurn;
-  } else {
-    $("#go-btn").onclick = startTurn;
+    $("#go-btn").textContent = "▶️ Next mission";
   }
+  $("#go-btn").onclick = startTurn;
 
   $("#title-play").onclick = () => {
     Sound.unlock();

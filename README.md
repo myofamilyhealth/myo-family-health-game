@@ -35,10 +35,11 @@ real therapeutic purpose of the exercise.
 ## Grown-up Skip Mode
 
 For previewing the game (or clicking through the board without doing exercises), open
-**`skip.html`** (or add `?skip=1` to the URL). In skip mode the "Play a mission!" button
-becomes "⏭️ Skip ahead!" and each tap jumps the character forward 1–3 spaces instantly —
-no exercise, no wheel spin — while still awarding coins and showing veggie/star/finish
-tiles so the whole game is testable in seconds.
+**`skip.html`** (or add `?skip=1` to the URL). In skip mode each turn still shows the full
+exercise card — so you can see exactly which exercise is given and read its grown-up note —
+but instead of running the timer/reps and spinning the wheel, a "⏭️ Skip this one!" button
+jumps the character forward 1–3 spaces instantly. Coins are still awarded and
+veggie/star/finish tiles still appear, so the whole game is reviewable in seconds.
 
 ## Running it
 
