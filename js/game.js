@@ -163,6 +163,10 @@ function buildBoard() {
       t.style.background = BOARD.candyColors[i % BOARD.candyColors.length];
     }
     t.dataset.index = i;
+    if (SKIP_MODE) {
+      t.classList.add("tappable");
+      t.addEventListener("click", () => jumpToTile(i));
+    }
     layer.appendChild(t);
   });
 }
@@ -193,6 +197,30 @@ async function moveToken(steps) {
     placeToken(true);
     await wait(380);
   }
+}
+
+/* Skip mode: tap any tile to jump straight there. */
+async function jumpToTile(index) {
+  if (state.busy || index === state.pos) return;
+  state.busy = true;
+  const forward = index > state.pos;
+  if (forward) {
+    awardCoins(COINS.exercise);
+    // snappier hops for longer jumps so a full-board skip stays quick
+    const per = Math.min(120, Math.max(45, Math.round(900 / (index - state.pos))));
+    while (state.pos < index) {
+      state.pos++;
+      Sound.hop();
+      placeToken(true);
+      await wait(per);
+    }
+  } else {
+    Sound.whoosh();
+    state.pos = index;
+    placeToken(true);
+    await wait(400);
+  }
+  await handleTile();
 }
 
 /* ---------- character select & shop ---------- */

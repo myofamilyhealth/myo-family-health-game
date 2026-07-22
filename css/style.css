@@ -289,7 +289,23 @@ button {
   box-shadow: 0 6px 14px rgba(74, 53, 87, .35);
   display: flex; align-items: center; justify-content: center;
   z-index: 5;
+  pointer-events: none; /* let taps reach the tiles underneath (skip mode) */
 }
+
+/* skip mode: tap any tile to jump straight there */
+body.skip-mode .tile.tappable { cursor: pointer; }
+body.skip-mode .tile.tappable::after {
+  content: ""; position: absolute; inset: -5px;
+  border-radius: 50%; border: 3px dashed rgba(230, 67, 143, .55);
+  animation: tapPulse 1.8s ease-in-out infinite;
+}
+body.skip-mode .tile-finish.tappable::after { inset: -6px; }
+body.skip-mode .tile.tappable:hover {
+  transform: translate(-50%, -50%) scale(1.16);
+  box-shadow: 0 0 0 4px rgba(255, 95, 168, .6), 0 4px 10px rgba(74, 53, 87, .3);
+  z-index: 4;
+}
+@keyframes tapPulse { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
 .token-face { font-size: clamp(18px, 3.4vw, 38px); }
 .player-token .token-hat { font-size: clamp(10px, 1.8vw, 20px); top: -32%; }
 

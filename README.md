@@ -35,11 +35,17 @@ real therapeutic purpose of the exercise.
 ## Grown-up Skip Mode
 
 For previewing the game (or clicking through the board without doing exercises), open
-**`skip.html`** (or add `?skip=1` to the URL). In skip mode each turn still shows the full
-exercise card — so you can see exactly which exercise is given and read its grown-up note —
-but instead of running the timer/reps and spinning the wheel, a "⏭️ Skip this one!" button
-jumps the character forward 1–3 spaces instantly. Coins are still awarded and
-veggie/star/finish tiles still appear, so the whole game is reviewable in seconds.
+**`skip.html`** (or add `?skip=1` to the URL). Skip mode gives you two ways to move:
+
+- **Tap any spot on the trail** to jump the character straight to that tile — the tapped
+  tile fires its event (veggie friend, lucky star, rainbow slide, or the castle win).
+  Tappable tiles show a dashed pulsing ring.
+- **Use the "▶️ Next mission" button** to preview an exercise: it shows the full exercise
+  card (name, story, instructions, and grown-up note) with a "⏭️ Skip this one!" button
+  that hops ahead 1–3 spaces.
+
+Coins are still awarded and tile events still appear, so the whole game is reviewable in
+seconds.
 
 ## Running it
 
