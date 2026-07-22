@@ -1,114 +1,116 @@
 /* ============================================================
    MyoLand — game data
-   Exercises are real myofunctional therapy drills dressed up
-   as silly adventure missions ("hiding the vegetables").
+   Missions are fun, at-home NASAL BREATHING games — nose
+   breathing, gentle breath-holds, puffer cheeks, humming, and
+   nose-clearing drills — dressed up as silly adventure missions.
+   ("Hiding the vegetables" — it's therapy, disguised as play.)
    ============================================================ */
 
 const EXERCISES = [
   {
-    id: "rocket",
-    name: "Rocket Launch",
-    emoji: "🚀",
-    story: "Your rocket can't blast off without tongue power!",
-    instruction: "Touch the tip of your tongue to the magic spot right behind your top front teeth. Hold it there while the rocket counts down!",
-    type: "timer",
-    seconds: 10,
-    grownup: "Trains tongue-tip placement on the alveolar ridge — the foundation of proper oral rest posture."
-  },
-  {
-    id: "pony",
-    name: "Pony Rides",
-    emoji: "🐴",
-    story: "A pony needs to trot across the bridge — you make the hoof sounds!",
-    instruction: "Click your tongue against the roof of your mouth to make a loud CLIP-CLOP sound. Tap the button after every clop!",
+    id: "flower-candle",
+    name: "Flower & Candle",
+    emoji: "🌸",
+    story: "A whole garden of flowers, each with a birthday candle!",
+    instruction: "Smell the flower slooowly through your NOSE… then blow out its candle through your MOUTH. Tap after each smell-and-blow!",
     type: "reps",
-    reps: 10,
-    repLabel: "clip-clops",
-    grownup: "Tongue clicks build tongue-to-palate suction and strength."
+    reps: 3,
+    repLabel: "smell-and-blows",
+    grownup: "Nasal inhale, slow oral exhale — the core of calm nasal breathing. Trains kids to breathe IN through the nose."
   },
   {
-    id: "balloon",
-    name: "Balloon Cheeks",
-    emoji: "🎈",
-    story: "The balloon festival is starting and they need YOUR balloons!",
-    instruction: "Take a big breath, puff your cheeks up like two giant balloons, and hold the air in. Keep your lips zipped tight!",
+    id: "puffer",
+    name: "Puffer Cheeks",
+    emoji: "🐡",
+    story: "The little pufferfish needs to puff up BIG to scare the shark!",
+    instruction: "Breathe in through your nose, then puff both cheeks full of air like a pufferfish and hold. Keep your lips zipped tight!",
     type: "timer",
     seconds: 8,
-    grownup: "Strengthens the buccinator and orbicularis oris muscles for lip seal."
+    grownup: "Cheek puff and lip seal (buccinator + orbicularis oris) after a nasal breath — builds lip strength and breath control."
   },
   {
-    id: "zipit",
-    name: "Zip It!",
-    emoji: "🤐",
-    story: "Shhh! We're sneaking past the sleeping giant!",
-    instruction: "Press your lips together as tight as a zipper. Don't let a single giggle escape until the giant stops snoring!",
-    type: "timer",
-    seconds: 10,
-    grownup: "Lip-seal hold — encourages closed-mouth rest posture and nasal breathing."
-  },
-  {
-    id: "bunny",
+    id: "bunny-sniffs",
     name: "Bunny Sniffs",
-    emoji: "🐇",
-    story: "A bunny smelled something yummy in the flower garden!",
-    instruction: "Close your mouth and take slow, quiet sniffs through your nose like a bunny smelling flowers. Tap after every sniff!",
+    emoji: "🐰",
+    story: "A bunny smelled yummy carrots in the garden!",
+    instruction: "Close your mouth and take quick little sniffs through your nose — sniff, sniff, sniff — like a bunny! Tap after each sniff.",
     type: "reps",
     reps: 5,
     repLabel: "sniffs",
-    grownup: "Practices calm nasal breathing with the mouth closed."
+    grownup: "Quick nasal sniffs help wake up and clear a stuffy nose and reinforce breathing through the nose."
   },
   {
-    id: "lizard",
-    name: "Lizard Licks",
-    emoji: "🦎",
-    story: "Lizzy the Lizard just ate a juicy berry — help her clean up!",
-    instruction: "Stick out your tongue and slooowly lick all the way around your lips in a big circle. Tap after each full circle!",
-    type: "reps",
-    reps: 4,
-    repLabel: "circles",
-    grownup: "Circular tongue sweeps improve tongue mobility and range of motion."
-  },
-  {
-    id: "fish",
-    name: "Fish Face",
-    emoji: "🐠",
-    story: "To swim through Bubble Bay you must look like a fish!",
-    instruction: "Suck your cheeks in and pucker your lips to make the silliest fish face ever. Hold it — don't laugh!",
+    id: "bee-hum",
+    name: "Buzzy Bee Hum",
+    emoji: "🐝",
+    story: "Help the busy bee buzz all around the flowers!",
+    instruction: "Close your mouth and huuuum like a bee — mmmmmm! Feel the buzzy tickle in your nose the whole time.",
     type: "timer",
     seconds: 8,
-    grownup: "Cheek and lip pucker strengthens perioral muscles."
+    grownup: "Humming (bee breath) boosts nasal airflow and nitric oxide, which helps the nasal passages feel more open."
   },
   {
-    id: "wipers",
-    name: "Windshield Wipers",
-    emoji: "🚗",
-    story: "Uh oh, jelly rain! Wipe the windshield so we can drive on!",
-    instruction: "Move your tongue side to side, touching each corner of your mouth. Swish, swash! Tap after every swish!",
+    id: "dragon",
+    name: "Dragon Breath",
+    emoji: "🐲",
+    story: "A friendly dragon is warming up its big breath!",
+    instruction: "Take a BIG breath in through your NOSE, then let out a big warm dragon breath through your MOUTH — haaaah! Tap after each one.",
     type: "reps",
-    reps: 8,
-    repLabel: "swishes",
-    grownup: "Lateral tongue movement builds coordination and control."
+    reps: 4,
+    repLabel: "dragon breaths",
+    grownup: "Big nasal inhale with a long mouth exhale — practices deep nasal breathing and a slow, controlled out-breath."
   },
   {
-    id: "sky",
-    name: "Kiss the Sky",
-    emoji: "😚",
-    story: "The little cloud is lonely — send it a kiss!",
-    instruction: "Stretch your tongue up, up, UP and try to touch your nose! Reach as high as you can and hold it!",
+    id: "superhero-nose",
+    name: "Superhero Nose",
+    emoji: "🦸",
+    story: "Unlock your super-sniffer powers, one side at a time!",
+    instruction: "Press one side of your nose with a finger and sniff through the other side. Then switch sides! Tap after each super-sniff.",
+    type: "reps",
+    reps: 4,
+    repLabel: "super-sniffs",
+    grownup: "A kid-friendly alternate-nostril breath — gently helps clear and open each nasal passage one side at a time."
+  },
+  {
+    id: "hold-bubble",
+    name: "Hold the Bubble",
+    emoji: "🫧",
+    story: "Catch a magic bubble of air and keep it safe!",
+    instruction: "Breathe in through your nose, puff your cheeks, and hold your bubble of air. Don't let it pop until the count is done!",
+    type: "timer",
+    seconds: 5,
+    grownup: "A short, gentle breath-hold after a nasal inhale — builds breath awareness and control. Keep it playful and brief."
+  },
+  {
+    id: "feather-float",
+    name: "Feather Float",
+    emoji: "🪶",
+    story: "Keep the magic feather floating up in the air!",
+    instruction: "Take a big breath in through your nose, then blow a long, sloooow stream of air to keep the feather up. Don't let it fall!",
     type: "timer",
     seconds: 6,
-    grownup: "Tongue elevation stretch — extends and strengthens the tongue upward."
+    grownup: "A long, controlled exhale after a nasal inhale — builds breath control and a slow, steady out-breath."
   },
   {
-    id: "magic",
-    name: "Magic Swallow",
-    emoji: "✨",
-    story: "Drink the invisible magic potion to open the treasure gate!",
-    instruction: "Put your tongue on the magic spot, smile big so we can see your teeth, and swallow without moving your lips. Tap after each magic swallow!",
+    id: "nose-wiggle",
+    name: "Nose Wiggle Wake-Up",
+    emoji: "👃",
+    story: "Time to wake up your sleepy nose!",
+    instruction: "Scrunch and wiggle your nose like a bunny — wiggle, wiggle! Then take one happy breath through your nose. Tap after each wiggle.",
     type: "reps",
-    reps: 3,
-    repLabel: "swallows",
-    grownup: "Practices a correct swallow pattern with tongue-tip placement and no lip strain."
+    reps: 6,
+    repLabel: "wiggles",
+    grownup: "Playful nose-scrunching wakes up the face and nose and helps kids tune in to breathing through the nose."
+  },
+  {
+    id: "balloon-belly",
+    name: "Balloon Belly",
+    emoji: "🎈",
+    story: "Fill your tummy up like a big happy balloon!",
+    instruction: "Breathe in slooowly through your NOSE and fill your belly like a giant balloon. Watch it grow… then let it out nice and slow.",
+    type: "timer",
+    seconds: 6,
+    grownup: "Slow diaphragmatic (belly) breathing through the nose — calming, and reinforces nasal over shallow mouth breathing."
   }
 ];
 

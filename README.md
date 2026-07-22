@@ -1,18 +1,25 @@
-# MyoLand — The Great Smile Adventure 🐰🌈🏰
+# MyoLand — The Great Nose & Breathing Adventure 🐰🌈🏰
 
 A candy-colored, Candyland-style board game from **Myo Family Health** that gets kids
-ages 4–8 practicing real **myofunctional therapy exercises** — without them ever
-realizing it's therapy. We hide the vegetables. 🥕
+ages 4–8 practicing fun **nasal breathing exercises** — nose breathing, gentle
+breath-holds, puffer cheeks, humming, and nose-clearing games — without them ever
+realizing it's therapy. Easy things anyone can do at home. We hide the vegetables. 🥕
+
+## The exercises (all nose & breathing focused)
+
+Flower & Candle (smell through the nose, blow out through the mouth), Puffer Cheeks,
+Bunny Sniffs, Buzzy Bee Hum (humming to open the nose), Dragon Breath, Superhero Nose
+(kid-friendly alternate-nostril sniffing), Hold the Bubble (gentle breath-hold),
+Feather Float, Nose Wiggle Wake-Up, and Balloon Belly (slow belly breathing).
 
 ## How it plays
 
 1. **Pick a buddy** — choose a character, bubble color, and a fancy hat.
-2. **Play a mission** — each turn presents a silly adventure mission ("Rocket Launch",
-   "Balloon Cheeks", "Bunny Sniffs"…) that is secretly a real therapy exercise:
-   tongue-tip placement, lip seal, nasal breathing, tongue mobility, and swallow practice.
-   Timed missions use a big countdown ring; rep missions fill up stars with each tap.
-3. **Hop along the trail** — finishing a mission earns **coins** and a magic spinner
-   (1–3 spaces). Special tiles along the way:
+2. **Play a mission** — each turn presents a silly adventure mission that is secretly a
+   real nasal-breathing exercise. Timed missions use a big countdown ring; rep missions
+   fill up stars with each tap.
+3. **Hop along the trail** — finishing a mission earns **coins** and an animated prize
+   wheel spin (1–3 spaces). Special tiles along the way:
    - ❓ **Hidden veggie friends** (Captain Carrot, Barry Broccoli…) — bonus coins and a
      sneaky bite of nutrition messaging
    - ⭐ **Lucky stars** — bonus coins
@@ -24,6 +31,14 @@ realizing it's therapy. We hide the vegetables. 🥕
 Coins, unlocked characters, and customization persist between visits via
 `localStorage`. Every mission card has a small "👋 Grown-ups" note explaining the
 real therapeutic purpose of the exercise.
+
+## Grown-up Skip Mode
+
+For previewing the game (or clicking through the board without doing exercises), open
+**`skip.html`** (or add `?skip=1` to the URL). In skip mode the "Play a mission!" button
+becomes "⏭️ Skip ahead!" and each tap jumps the character forward 1–3 spaces instantly —
+no exercise, no wheel spin — while still awarding coins and showing veggie/star/finish
+tiles so the whole game is testable in seconds.
 
 ## Running it
 

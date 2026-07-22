@@ -24,6 +24,28 @@
 
 [hidden] { display: none !important; }
 
+/* skip-mode-only elements (shown when body.skip-mode) */
+.skip-only { display: none; }
+body.skip-mode .skip-only { display: block; }
+.skip-badge {
+  display: none;
+  margin: 8px auto 0;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: .95rem;
+  box-shadow: var(--shadow);
+}
+body.skip-mode .skip-badge { display: inline-block; }
+.skip-note {
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: #2f6ea8;
+  font-size: 1rem;
+}
+
 html, body { height: 100%; }
 
 body {

@@ -6,6 +6,10 @@
 
 const SAVE_KEY = "myoland-save-v1";
 
+/* Grown-up skip link: index.html?skip=1 (or skip.html) lets you jump
+   through the board without doing exercises or spinning the wheel. */
+const SKIP_MODE = new URLSearchParams(location.search).has("skip");
+
 const state = {
   coins: 0,
   owned: ["bunny", "frog", "fox"],
@@ -278,6 +282,17 @@ function pickExercise() {
   return ex;
 }
 
+/* Skip mode: award coins, roll 1-3, hop — no exercise, no wheel. */
+async function skipTurn() {
+  if (state.busy) return;
+  state.busy = true;
+  Sound.hop();
+  awardCoins(COINS.exercise);
+  const steps = spinSteps();
+  await moveToken(steps);
+  await handleTile();
+}
+
 function startTurn() {
   if (state.busy) return;
   state.busy = true;
@@ -516,6 +531,15 @@ function init() {
   Sound.setMuted(state.muted);
   updateHud();
 
+  if (SKIP_MODE) {
+    document.body.classList.add("skip-mode");
+    const go = $("#go-btn");
+    go.textContent = "⏭️ Skip ahead!";
+    go.onclick = skipTurn;
+  } else {
+    $("#go-btn").onclick = startTurn;
+  }
+
   $("#title-play").onclick = () => {
     Sound.unlock();
     Sound.pop();
@@ -525,8 +549,6 @@ function init() {
 
   $("#pick-go").onclick = () => { Sound.yay(); startRun(); };
   $("#pick-back").onclick = () => { Sound.pop(); showScreen("screen-title"); };
-
-  $("#go-btn").onclick = startTurn;
   $("#board-shop").onclick = () => {
     if (state.busy) return;
     Sound.pop();
