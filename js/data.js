@@ -115,14 +115,26 @@ const EXERCISES = [
 ];
 
 const CHARACTERS = [
-  { id: "bunny",   name: "Bouncy",  emoji: "🐰", cost: 0 },
-  { id: "frog",    name: "Zippy",   emoji: "🐸", cost: 0 },
-  { id: "fox",     name: "Foxy",    emoji: "🦊", cost: 0 },
-  { id: "unicorn", name: "Sparkle", emoji: "🦄", cost: 100 },
-  { id: "dragon",  name: "Blaze",   emoji: "🐲", cost: 150 },
-  { id: "dino",    name: "Rexy",    emoji: "🦖", cost: 200 },
-  { id: "octopus", name: "Inky",    emoji: "🐙", cost: 250 },
-  { id: "fairy",   name: "Pixie",   emoji: "🧚", cost: 300 }
+  { id: "bunny",    name: "Bouncy",   emoji: "🐰", cost: 0 },
+  { id: "frog",     name: "Zippy",    emoji: "🐸", cost: 0 },
+  { id: "fox",      name: "Foxy",     emoji: "🦊", cost: 0 },
+  { id: "cat",      name: "Whiskers", emoji: "🐱", cost: 50 },
+  { id: "dog",      name: "Pup",      emoji: "🐶", cost: 75 },
+  { id: "panda",    name: "Bamboo",   emoji: "🐼", cost: 100 },
+  { id: "penguin",  name: "Waddles",  emoji: "🐧", cost: 125 },
+  { id: "koala",    name: "Snuggle",  emoji: "🐨", cost: 150 },
+  { id: "lion",     name: "Roary",    emoji: "🦁", cost: 175 },
+  { id: "tiger",    name: "Stripes",  emoji: "🐯", cost: 200 },
+  { id: "monkey",   name: "Cheeky",   emoji: "🐵", cost: 225 },
+  { id: "owl",      name: "Hoot",     emoji: "🦉", cost: 250 },
+  { id: "unicorn",  name: "Sparkle",  emoji: "🦄", cost: 300 },
+  { id: "dragon",   name: "Blaze",    emoji: "🐲", cost: 350 },
+  { id: "dino",     name: "Rexy",     emoji: "🦖", cost: 400 },
+  { id: "octopus",  name: "Inky",     emoji: "🐙", cost: 450 },
+  { id: "fairy",    name: "Pixie",    emoji: "🧚", cost: 500 },
+  { id: "robot",    name: "Bolt",     emoji: "🤖", cost: 600 },
+  { id: "sloth",    name: "Chill",    emoji: "🦥", cost: 700 },
+  { id: "flamingo", name: "Fifi",     emoji: "🦩", cost: 850 }
 ];
 
 const BUBBLE_COLORS = ["#ff7ab8", "#ffb84d", "#7ee081", "#6ec6ff", "#c39bff", "#ff8a80"];
@@ -155,8 +167,8 @@ const BOARD = {
 };
 
 const COINS = {
-  exercise: 10,
-  veggie: 5,
-  star: 5,
-  finish: 50
+  exercise: 5,
+  veggie: 3,
+  star: 3,
+  finish: 20
 };

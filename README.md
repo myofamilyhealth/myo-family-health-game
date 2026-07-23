@@ -25,8 +25,11 @@ Feather Float, Nose Wiggle Wake-Up, and Balloon Belly (slow belly breathing).
    - ⭐ **Lucky stars** — bonus coins
    - 🌈 **Rainbow slides** — jump ahead 2 spaces
 4. **Reach Smile Castle** 🏰 — big coin reward, confetti, and play again!
-5. **Spend coins** in the character shop to unlock new buddies (unicorn, dragon,
-   dino, octopus, fairy).
+5. **Spend coins** in the character shop to unlock 17 new buddies (cat, dog, panda,
+   penguin, koala, lion, tiger, monkey, owl, unicorn, dragon, dino, octopus, fairy,
+   robot, sloth, flamingo) — 20 characters in all, priced 50–850 coins so there's
+   always something to save toward. Coin rewards are kept modest so unlocking feels
+   earned.
 
 Coins, unlocked characters, and customization persist between visits via
 `localStorage`. Every mission card has a small "👋 Grown-ups" note explaining the

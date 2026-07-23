@@ -46,7 +46,8 @@ body.skip-mode .skip-badge { display: inline-block; }
   font-size: 1rem;
 }
 
-html, body { height: 100%; }
+html { height: 100%; }
+body { min-height: 100%; }
 
 body {
   font-family: var(--font);
@@ -179,6 +180,7 @@ button {
 
 /* ---------- pick screen ---------- */
 
+#screen-pick.active { justify-content: flex-start; }
 .pick-wrap { width: min(1060px, 100%); padding: 20px; }
 .pick-header {
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
