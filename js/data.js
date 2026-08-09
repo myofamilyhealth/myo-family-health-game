@@ -174,3 +174,12 @@ const COINS = {
   star: 3,
   finish: 20
 };
+
+/* Exercise pool rules for a single round (one trip to the castle):
+   an exercise drops out of the draw once it's been completed `maxPlays`
+   times; when the remaining pool shrinks to `resetAt` the pool refills
+   with every exercise again. */
+const POOL = {
+  maxPlays: 2,
+  resetAt: 4
+};

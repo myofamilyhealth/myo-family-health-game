@@ -21,6 +21,7 @@ const state = {
   pos: 0,
   veggiesFound: [],
   lastExerciseId: null,
+  exerciseCounts: {},   // exercise id -> times completed this round
   busy: false
 };
 
@@ -303,8 +304,31 @@ function renderPreview() {
 
 /* ---------- exercise missions ---------- */
 
+/* ---------- exercise pool ----------
+   Within a round an exercise leaves the draw after POOL.maxPlays
+   completions; when the pool shrinks to POOL.resetAt it refills with
+   everything again. This is a handful of array ops on 10 items, so it
+   runs silently between turns and never touches the animation path. */
+
+function eligibleExercises() {
+  return EXERCISES.filter(e => (state.exerciseCounts[e.id] || 0) < POOL.maxPlays);
+}
+
+function resetExercisePool() {
+  state.exerciseCounts = {};
+}
+
+// Called when an exercise is actually completed (not when it's skipped).
+function noteExerciseCompleted(id) {
+  state.exerciseCounts[id] = (state.exerciseCounts[id] || 0) + 1;
+  if (eligibleExercises().length <= POOL.resetAt) resetExercisePool();
+}
+
 function pickExercise() {
-  let pool = EXERCISES.filter(e => e.id !== state.lastExerciseId);
+  let pool = eligibleExercises();
+  // never repeat the previous exercise back-to-back, as long as there's a choice
+  const fresh = pool.filter(e => e.id !== state.lastExerciseId);
+  if (fresh.length) pool = fresh;
   const ex = pool[Math.floor(Math.random() * pool.length)];
   state.lastExerciseId = ex.id;
   return ex;
@@ -438,6 +462,7 @@ function runRepsMission(ex) {
 const WHEEL_ORDER = [1, 2, 3, 1, 2, 3]; // clockwise from the top, 60° segments
 
 async function missionComplete(ex) {
+  noteExerciseCompleted(ex.id);
   Sound.yay();
   confettiBurst(35);
   const steps = spinSteps();
@@ -595,6 +620,8 @@ function winGame() {
 function startRun() {
   state.pos = 0;
   state.veggiesFound = [];
+  state.lastExerciseId = null;
+  resetExercisePool();
   state.busy = false;
   buildBoard();
   renderToken();
