@@ -116,14 +116,27 @@ function awardCoins(n) {
 
 let tilePositions = []; // percent coords
 
+/* Phones get a tall 5x6 board so the trail fills a portrait screen;
+   wider screens keep the landscape 6x5 layout. */
+function boardLayout() {
+  return window.matchMedia("(max-width: 700px)").matches
+    ? { cols: 5, rows: 6, vbW: 700, vbH: 1000, portrait: true }
+    : { cols: 6, rows: 5, vbW: 1000, vbH: 700, portrait: false };
+}
+
+let builtPortrait = null;
+
 function buildBoard() {
-  const cols = 6, rows = 5;
+  const { cols, rows, vbW, vbH, portrait } = boardLayout();
+  builtPortrait = portrait;
+  const xStep = 82 / (cols - 1);
+  const yStep = 78 / (rows - 1);
   tilePositions = [];
   for (let r = 0; r < rows; r++) {
-    const y = 90 - r * 19.5;
+    const y = 90 - r * yStep;
     for (let c = 0; c < cols; c++) {
       const col = (r % 2 === 0) ? c : cols - 1 - c;
-      const x = 9 + col * 16.4;
+      const x = 9 + col * xStep;
       const wobble = Math.sin((r * cols + c) * 1.7) * 2.2;
       tilePositions.push({ x, y: y + wobble });
     }
@@ -132,11 +145,12 @@ function buildBoard() {
 
   // path ribbon underneath
   const svg = $("#board-path");
-  const pts = tilePositions.map(p => `${p.x * 10},${p.y * 7}`).join(" ");
-  svg.setAttribute("viewBox", "0 0 1000 700");
+  const pts = tilePositions.map(p => `${(p.x / 100) * vbW},${(p.y / 100) * vbH}`).join(" ");
+  svg.setAttribute("viewBox", `0 0 ${vbW} ${vbH}`);
+  const wOuter = vbW * 0.052, wInner = vbW * 0.04;
   svg.innerHTML =
-    `<polyline points="${pts}" fill="none" stroke="#ffffff" stroke-width="52" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>` +
-    `<polyline points="${pts}" fill="none" stroke="#ffe3f1" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>`;
+    `<polyline points="${pts}" fill="none" stroke="#ffffff" stroke-width="${wOuter}" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>` +
+    `<polyline points="${pts}" fill="none" stroke="#ffe3f1" stroke-width="${wInner}" stroke-linecap="round" stroke-linejoin="round"/>`;
 
   const layer = $("#tile-layer");
   layer.innerHTML = "";
@@ -185,9 +199,13 @@ function renderToken() {
 function placeToken(animate = true) {
   const token = $("#player-token");
   const p = tilePositions[state.pos];
+  // lift the token off its tile by a fraction of the row spacing, so it
+  // sits right whether the board is the wide 6x5 or the tall 5x6 layout
+  const { rows } = boardLayout();
+  const lift = (78 / (rows - 1)) * 0.3;
   token.style.transition = animate ? "left .35s cubic-bezier(.5,1.6,.4,1), top .35s cubic-bezier(.5,1.6,.4,1)" : "none";
   token.style.left = p.x + "%";
-  token.style.top = (p.y - 6) + "%";
+  token.style.top = (p.y - lift) + "%";
 }
 
 async function moveToken(steps) {
@@ -663,8 +681,19 @@ function init() {
     updateHud();
   };
 
+  // Rebuild the trail when the phone rotates across the layout breakpoint,
+  // otherwise just re-seat the token. Debounced so rotation stays smooth.
+  let resizeTimer = null;
   window.addEventListener("resize", () => {
-    if ($("#screen-board").classList.contains("active")) placeToken(false);
+    if (!$("#screen-board").classList.contains("active")) return;
+    placeToken(false);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (boardLayout().portrait !== builtPortrait) {
+        buildBoard();
+        renderToken();
+      }
+    }, 150);
   });
 }
 

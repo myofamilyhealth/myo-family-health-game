@@ -56,6 +56,9 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  /* stop pull-to-refresh / rubber-banding while kids tap fast */
+  overscroll-behavior-y: contain;
+  -webkit-text-size-adjust: 100%;
 }
 
 button {
@@ -64,6 +67,18 @@ button {
   border: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  /* kill the double-tap-to-zoom delay without blocking pinch zoom */
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* nothing draggable/selectable on a long press, except real prose */
+.tile, .player-token, .char-card, .mission-emoji, .wheel, .timer-ring {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
 }
 
 /* ---------- sky decorations ---------- */
@@ -81,7 +96,8 @@ button {
 
 /* ---------- screens ---------- */
 
-.screen { display: none; min-height: 100vh; position: relative; z-index: 1; }
+/* dvh so the mobile URL bar showing/hiding doesn't jump the layout */
+.screen { display: none; min-height: 100vh; min-height: 100dvh; position: relative; z-index: 1; }
 .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
 /* ---------- shared bits ---------- */
@@ -254,6 +270,9 @@ button {
   width: min(1060px, 100%);
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 14px 18px 4px;
+  padding-top: calc(14px + env(safe-area-inset-top));
+  padding-left: calc(18px + env(safe-area-inset-left));
+  padding-right: calc(18px + env(safe-area-inset-right));
 }
 .hud-title { font-size: 1.6rem; font-weight: 800; color: var(--pink); text-shadow: 0 2px 0 rgba(230,67,143,.18); }
 .hud-title span { color: var(--blue); }
@@ -323,7 +342,12 @@ body.skip-mode .tile.tappable:hover {
 .token-face { font-size: clamp(18px, 3.4vw, 38px); }
 .player-token .token-hat { font-size: clamp(10px, 1.8vw, 20px); top: -32%; }
 
-.board-footer { width: min(1060px, 100%); padding: 12px 16px 22px; text-align: center; }
+.board-footer {
+  width: min(1060px, 100%);
+  padding: 12px 16px 22px;
+  padding-bottom: calc(22px + env(safe-area-inset-bottom));
+  text-align: center;
+}
 
 /* ---------- modal ---------- */
 
@@ -442,10 +466,113 @@ body.skip-mode .tile.tappable:hover {
 
 /* ---------- small screens ---------- */
 
-@media (max-width: 640px) {
-  .hud { flex-wrap: wrap; justify-content: center; }
+/* ============================================================
+   PHONES — portrait board, one-row HUD, thumb-friendly targets
+   ============================================================ */
+@media (max-width: 700px) {
+  /* HUD must stay on ONE row: it was wrapping and eating ~130px */
+  .hud {
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 8px 10px 2px;
+    padding-top: calc(8px + env(safe-area-inset-top));
+  }
   .hud-title { display: none; }
-  .big-btn.giant { font-size: 1.5rem; padding: 16px 36px; }
-  .pick-body { flex-direction: column; }
-  .preview-col { max-width: 100%; width: 100%; }
+  .hud-right { gap: 6px; flex-wrap: nowrap; }
+  .hud-chip, .coin-chip { padding: 6px 10px; font-size: .95rem; }
+  .hud-chip.char-chip { display: none; } /* the token on the board already shows it */
+  .round-btn { width: 44px; height: 44px; font-size: 1.15rem; }
+
+  /* Tall 5x6 trail that actually fills a portrait screen */
+  .board-frame { padding: 6px 10px; }
+  .board {
+    width: min(100%, calc((100dvh - 170px) * 7 / 10));
+    aspect-ratio: 7 / 10;
+    border-width: 6px;
+  }
+  .tile { width: 14.5%; border-width: 2.5px; font-size: clamp(15px, 5vw, 30px); }
+  .tile-finish { width: 19%; font-size: clamp(20px, 6.5vw, 38px); }
+  .player-token { width: 16%; border-width: 3px; }
+  .token-face { font-size: clamp(20px, 6vw, 34px); }
+  .player-token .token-hat { font-size: clamp(11px, 3.4vw, 18px); }
+
+  .board-footer { padding: 8px 12px 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+  .big-btn.giant { font-size: 1.4rem; padding: 15px 30px; width: 100%; max-width: 420px; }
+  .skip-note { font-size: .8rem; margin-bottom: 7px; }
+
+  /* character shop: comfortable two-up grid, compact preview */
+  .pick-wrap { padding: 12px; }
+  .pick-body { flex-direction: column; gap: 14px; }
+  .preview-col { max-width: 100%; width: 100%; padding: 16px; }
+  .char-preview { width: 104px; height: 104px; }
+  .preview-face { font-size: 3rem; }
+  .char-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; }
+  .char-emoji { font-size: 2.4rem; }
+  .char-card { padding: 12px 6px; }
+
+  /* modals: fit the phone, keep buttons reachable */
+  #modal-overlay { padding: 10px; align-items: flex-start; padding-top: max(10px, env(safe-area-inset-top)); }
+  .modal { padding: 20px 18px; border-radius: 24px; margin: auto 0; }
+  .mission-emoji { font-size: 3rem; }
+  .mission-title { font-size: 1.45rem; }
+  .mission-story { font-size: 1rem; }
+  .mission-instruction { font-size: .98rem; margin-bottom: 14px; }
+  .big-btn { font-size: 1.25rem; padding: 15px 26px; }
+  .rep-btn { font-size: 1.3rem; padding: 18px 24px; width: 100%; }
+  .timer-ring { width: 128px; height: 128px; }
+  .timer-ring::before { width: 100px; height: 100px; }
+  #timer-num { font-size: 2.5rem; }
+  .wheel-wrap, .wheel { width: 160px; }
+  .wheel { height: 160px; }
+  .wheel-num { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-50px); font-size: 1.45rem; }
+  .grownup-note { font-size: .82rem; }
+  .title-card { padding: 30px 22px; margin: 14px; }
+  .prep-note { font-size: .85rem; padding: 10px 13px; }
+}
+
+/* very narrow phones */
+@media (max-width: 360px) {
+  .hud-chip, .coin-chip { padding: 5px 8px; font-size: .88rem; }
+  .round-btn { width: 40px; height: 40px; font-size: 1.05rem; }
+  .char-grid { grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); }
+}
+
+/* ============================================================
+   SHORT SCREENS (landscape phones) — shrink so nothing falls
+   below the fold; the board goes back to its wide layout
+   ============================================================ */
+@media (max-height: 520px) and (orientation: landscape) {
+  .board { width: min(100%, calc((100dvh - 150px) * 10 / 7)); aspect-ratio: 10 / 7; }
+  .hud { padding: 6px 12px 0; padding-top: calc(6px + env(safe-area-inset-top)); }
+  .round-btn { width: 42px; height: 42px; font-size: 1.05rem; }
+  .hud-chip, .coin-chip { padding: 5px 11px; font-size: .92rem; }
+  .board-frame { padding: 4px 10px; }
+  .board-footer { padding: 6px 12px 8px; }
+  .big-btn.giant { font-size: 1.15rem; padding: 10px 24px; }
+
+  #modal-overlay { align-items: flex-start; padding: 8px; }
+  .modal { padding: 14px 18px; max-height: 96dvh; }
+  .mission-emoji { font-size: 2rem; }
+  .mission-title { font-size: 1.2rem; margin: 2px 0; }
+  .mission-story { font-size: .9rem; margin-bottom: 4px; }
+  .mission-instruction { font-size: .88rem; margin-bottom: 10px; line-height: 1.35; }
+  .big-btn { font-size: 1.05rem; padding: 10px 20px; }
+  .mission-btns { flex-direction: row; justify-content: center; }
+  .timer-ring { width: 92px; height: 92px; margin: 6px auto 8px; }
+  .timer-ring::before { width: 70px; height: 70px; }
+  #timer-num { font-size: 1.8rem; }
+  .phase-label { font-size: 1rem; margin-top: 2px; }
+  .wheel-wrap, .wheel { width: 112px; }
+  .wheel { height: 112px; }
+  .wheel-num { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-35px); font-size: 1.05rem; }
+  .wheel-hub { width: 34px; height: 34px; font-size: 1rem; }
+  .wheel-pointer { font-size: 1.3rem; top: -10px; }
+  .rep-stars { font-size: 1.4rem; margin: 4px 0; }
+  .grownup-note { margin-top: 8px; font-size: .78rem; }
+  .title-card { padding: 18px 22px; }
+  .game-logo { font-size: 2.2rem; }
+  .title-mascots { font-size: 1.6rem; }
+  .tagline { font-size: 1rem; }
+  .subtitle { font-size: .85rem; margin-bottom: 8px; }
+  .prep-note { font-size: .75rem; padding: 7px 11px; margin-bottom: 10px; }
 }
