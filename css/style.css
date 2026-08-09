@@ -351,6 +351,23 @@ body.skip-mode .tile.tappable:hover {
 .mission-story { font-size: 1.15rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
 .mission-instruction { font-size: 1.05rem; line-height: 1.55; margin-bottom: 18px; }
 
+/* two-phase breath-hold timers: breathe in, then hold */
+.phase-steps {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+  margin: 8px 0 2px;
+}
+.phase-steps .step {
+  font-size: .85rem; font-weight: 800; color: #9c8fae;
+  background: #f1ecf7; border-radius: 999px; padding: 4px 12px;
+  transition: background .25s, color .25s, transform .25s;
+}
+.phase-steps .step.active { background: var(--blue); color: #fff; transform: scale(1.06); }
+.phase-steps .step.done { background: var(--green); color: #fff; }
+.phase-label {
+  font-size: 1.35rem; font-weight: 800; color: var(--pink-deep);
+  margin-top: 6px;
+}
+
 .timer-ring {
   --deg: 0deg;
   width: 150px; height: 150px; border-radius: 50%;
@@ -364,6 +381,7 @@ body.skip-mode .tile.tappable:hover {
   border-radius: 50%; background: var(--card);
 }
 .timer-ring { position: relative; }
+.timer-ring.inhale { background: conic-gradient(var(--blue) var(--deg), #e9e2f2 var(--deg)); }
 #timer-num { position: relative; font-size: 3rem; font-weight: 800; color: var(--ink); }
 
 .rep-stars { font-size: 1.9rem; letter-spacing: 4px; margin: 10px 0 6px; color: var(--yellow); }

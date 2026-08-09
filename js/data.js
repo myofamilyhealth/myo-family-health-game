@@ -25,6 +25,7 @@ const EXERCISES = [
     story: "The little pufferfish needs to puff up BIG to scare the shark!",
     instruction: "Breathe in through your nose, then puff both cheeks full of air like a pufferfish and hold. Keep your lips zipped tight!",
     type: "timer",
+    inhale: 3,
     seconds: 5,
     grownup: "Cheek puff and lip seal (buccinator + orbicularis oris) after a nasal breath — builds lip strength and breath control."
   },
@@ -78,6 +79,7 @@ const EXERCISES = [
     story: "Catch a magic bubble of air and keep it safe!",
     instruction: "Breathe in through your nose, puff your cheeks, and hold your bubble of air. Don't let it pop until the count is done!",
     type: "timer",
+    inhale: 3,
     seconds: 5,
     grownup: "A short, gentle breath-hold after a nasal inhale — builds breath awareness and control. Keep it playful and brief."
   },

@@ -348,30 +348,72 @@ function startTurn() {
 }
 
 function runTimerMission(ex) {
-  let remaining = ex.seconds;
+  // Breath-hold exercises run two timers back to back: a short breathe-in,
+  // then the hold itself. Everything else stays a single timer.
+  const phases = ex.inhale
+    ? [
+        { key: "inhale", title: "🌬️ Breathe in…", hint: "Slow breath in through your nose…", secs: ex.inhale },
+        { key: "hold",   title: "🫁 Hold it!",     hint: "Keep it in… you're doing great!",   secs: ex.seconds }
+      ]
+    : [{ key: "single", title: "", hint: "Keep going… you're doing great!", secs: ex.seconds }];
+  const twoPhase = phases.length > 1;
+
   openModal(`
     <div class="mission-emoji wiggle">${ex.emoji}</div>
     <h2 class="mission-title">${ex.name}</h2>
-    <div class="timer-ring" id="timer-ring">
-      <span id="timer-num">${remaining}</span>
-    </div>
-    <p class="mission-instruction">Keep going… you're doing great!</p>
+    ${twoPhase ? `<div class="phase-steps">
+      <span class="step" id="step-0">1️⃣ Breathe in</span>
+      <span class="step" id="step-1">2️⃣ Hold</span>
+    </div>` : ""}
+    ${twoPhase ? `<p class="phase-label" id="phase-label"></p>` : ""}
+    <div class="timer-ring" id="timer-ring"><span id="timer-num"></span></div>
+    <p class="mission-instruction" id="phase-hint"></p>
   `);
+
   const ring = $("#timer-ring");
   const num = $("#timer-num");
-  const total = ex.seconds;
-  const interval = setInterval(() => {
-    remaining--;
-    if (remaining > 0) {
-      Sound.tick();
-      num.textContent = remaining;
-      const pct = ((total - remaining) / total) * 360;
-      ring.style.setProperty("--deg", pct + "deg");
-    } else {
-      clearInterval(interval);
-      missionComplete(ex);
+  const hint = $("#phase-hint");
+  const label = twoPhase ? $("#phase-label") : null;
+  let pi = 0;
+  let interval = null;
+
+  function runPhase() {
+    const p = phases[pi];
+    let remaining = p.secs;
+    if (label) label.textContent = p.title;
+    hint.textContent = p.hint;
+    num.textContent = remaining;
+    ring.classList.toggle("inhale", p.key === "inhale");
+    ring.style.setProperty("--deg", "0deg");
+    if (twoPhase) {
+      phases.forEach((_, i) => {
+        const el = $("#step-" + i);
+        el.classList.toggle("active", i === pi);
+        el.classList.toggle("done", i < pi);
+      });
     }
-  }, 1000);
+    if (p.key === "inhale") Sound.whoosh();
+
+    interval = setInterval(() => {
+      remaining--;
+      if (remaining > 0) {
+        Sound.tick();
+        num.textContent = remaining;
+        ring.style.setProperty("--deg", ((p.secs - remaining) / p.secs) * 360 + "deg");
+      } else {
+        clearInterval(interval);
+        pi++;
+        if (pi < phases.length) {
+          Sound.pop();
+          runPhase();
+        } else {
+          missionComplete(ex);
+        }
+      }
+    }, 1000);
+  }
+
+  runPhase();
 }
 
 function runRepsMission(ex) {
