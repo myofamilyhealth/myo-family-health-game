@@ -175,7 +175,19 @@ button {
 }
 .game-logo span { color: var(--blue); }
 .tagline { font-size: 1.4rem; font-weight: 800; color: var(--orange); margin-bottom: 8px; }
-.subtitle { font-size: 1.05rem; line-height: 1.5; margin-bottom: 22px; color: #6b5a7c; }
+.subtitle { font-size: 1.05rem; line-height: 1.5; margin-bottom: 14px; color: #6b5a7c; }
+.prep-note {
+  background: #e7f5ff;
+  border: 2px dashed #74c0fc;
+  border-radius: 16px;
+  padding: 11px 15px;
+  font-size: .92rem;
+  line-height: 1.45;
+  color: #2f6ea8;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.prep-note b { color: #1c5a91; }
 .title-note { margin-left: auto; margin-right: auto; }
 
 /* ---------- pick screen ---------- */

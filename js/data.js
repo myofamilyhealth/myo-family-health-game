@@ -25,7 +25,7 @@ const EXERCISES = [
     story: "The little pufferfish needs to puff up BIG to scare the shark!",
     instruction: "Breathe in through your nose, then puff both cheeks full of air like a pufferfish and hold. Keep your lips zipped tight!",
     type: "timer",
-    seconds: 8,
+    seconds: 5,
     grownup: "Cheek puff and lip seal (buccinator + orbicularis oris) after a nasal breath — builds lip strength and breath control."
   },
   {
@@ -46,7 +46,7 @@ const EXERCISES = [
     story: "Help the busy bee buzz all around the flowers!",
     instruction: "Close your mouth and huuuum like a bee — mmmmmm! Feel the buzzy tickle in your nose the whole time.",
     type: "timer",
-    seconds: 8,
+    seconds: 5,
     grownup: "Humming (bee breath) boosts nasal airflow and nitric oxide, which helps the nasal passages feel more open."
   },
   {
@@ -54,11 +54,11 @@ const EXERCISES = [
     name: "Dragon Breath",
     emoji: "🐲",
     story: "A friendly dragon is warming up its big breath!",
-    instruction: "Take a BIG breath in through your NOSE, then let out a big warm dragon breath through your MOUTH — haaaah! Tap after each one.",
+    instruction: "Take a BIG breath in through your NOSE, then let out a big warm dragon breath through your NOSE — hmmmmm! Tap after each one.",
     type: "reps",
     reps: 4,
     repLabel: "dragon breaths",
-    grownup: "Big nasal inhale with a long mouth exhale — practices deep nasal breathing and a slow, controlled out-breath."
+    grownup: "Big nasal inhale with a long nasal exhale — practices deep nasal breathing in and out, with a slow, controlled out-breath."
   },
   {
     id: "superhero-nose",
@@ -83,13 +83,13 @@ const EXERCISES = [
   },
   {
     id: "feather-float",
-    name: "Feather Float",
+    name: "Magic Feather — Nose Breathing",
     emoji: "🪶",
-    story: "Keep the magic feather floating up in the air!",
-    instruction: "Take a big breath in through your nose, then blow a long, sloooow stream of air to keep the feather up. Don't let it fall!",
+    story: "Keep the magic feather perfectly still on your hand!",
+    instruction: "Place the magic feather gently on your hand. Take a quiet breath in through your nose, then slowly breathe out through your nose. Keep the feather on your hand — don't let your breath blow it away! Can you make your nasal breath so soft and gentle that the feather stays perfectly still?",
     type: "timer",
     seconds: 6,
-    grownup: "A long, controlled exhale after a nasal inhale — builds breath control and a slow, steady out-breath."
+    grownup: "Encourage quiet nasal inhalation and a slow, gentle nasal exhalation. The goal is to maintain nasal breathing while minimizing airflow from the mouth and keeping the feather from moving."
   },
   {
     id: "nose-wiggle",
@@ -107,7 +107,7 @@ const EXERCISES = [
     name: "Balloon Belly",
     emoji: "🎈",
     story: "Fill your tummy up like a big happy balloon!",
-    instruction: "Breathe in slooowly through your NOSE and fill your belly like a giant balloon. Watch it grow… then let it out nice and slow.",
+    instruction: "Breathe in slooowly through your NOSE and fill your belly like a giant balloon. Watch it grow… then let it out through your nose, nice and slow.",
     type: "timer",
     seconds: 6,
     grownup: "Slow diaphragmatic (belly) breathing through the nose — calming, and reinforces nasal over shallow mouth breathing."
